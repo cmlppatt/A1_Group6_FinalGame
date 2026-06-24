@@ -509,15 +509,6 @@ function draw() {
   drawSpikeHitboxes();
   pop();
 
-  push();
-  scale(camZoom * bgScale);
-  translate(-camX, -camY);
-  for (let w of walls) {
-    noStroke();
-    line(w.x1, w.y1, w.x2, w.y2);
-  }
-  pop();
-
   drawCharacterOnScreen();
   drawPenguinHitbox();
   baseWorldFrame = get();
