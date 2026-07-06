@@ -52,14 +52,19 @@ After the showcase, we identified two additional improvements that would further
 ## References
 [1]
 2026. Check out this chat. ChatGPT. Retrieved June 28, 2026 from https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f 
+
 [2]
 2026. Check out this chat. ChatGPT. Retrieved June 28, 2026 from https://chatgpt.com/share/6a3b1c9d-a274-83ea-9a6a-e0bd091c228a 
+
 [3]
 2026. Check out this chat. ChatGPT. Retrieved June 28, 2026 from https://chatgpt.com/share/6a3b1cc5-8bb8-83ea-9f4d-e796682b96a3 
+
 [4]
-2026. p5.js Sprite Animation Lock Mechanic. p5.js Sprite Animation Lock Mechanic. Retrieved June 28, 2026 from https://copilot.microsoft.com/shares/qWoQU7cuRCNA2YVGK73iy 
+2026. p5.js Sprite Animation Lock Mechanic. p5.js Sprite Animation Lock Mechanic. Retrieved June 28, 2026 from https://copilot.microsoft.com/shares/qWoQU7cuRCNA2YVGK73iy   
+
 [5]
 2026. Check out this chat. ChatGPT. Retrieved July 1, 2026 from https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f 
+
 [6]
 2026. Check out this chat. ChatGPT. Retrieved July 6, 2026 from https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f 
 
