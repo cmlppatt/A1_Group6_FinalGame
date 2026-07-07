@@ -223,6 +223,9 @@ const SPIKE_HITBOXES = [
 let spikeImages = [];
 let spikes = [];
 let DEBUG_SPIKE_HITBOXES = false; //remove after testing
+let SPIKE_EDIT_MODE = false; // make true to edit the spikes step 1/2
+let selectedSpikeVariant = 0;
+let editorCleared = true; //make false to clear spikes and add new ones step 2/2
 
 // Tutorial text
 let tutorialActive = false;
@@ -785,6 +788,10 @@ function randomizeFishPosition() {
 }
 
 function draw() {
+  if (SPIKE_EDIT_MODE) {
+    drawSpikeEditor();
+    return;
+  }
   // START SCREEN
   if (gameState === "start") {
     drawStartScreen();
@@ -1946,8 +1953,79 @@ function mouseReleased() {
     winBtnPressed = false;
     return;
   }
-
 }
+
+  function drawSpikeEditor() {
+    if (!editorCleared) {
+      spikes = [];
+      editorCleared = true;
+    }
+
+    background(20);
+
+    // show full tutorial background
+    image(bgImg, 0, 0, VIEW_W, VIEW_H);
+
+    let scaleX = VIEW_W / WORLD_W_SCALED;
+    let scaleY = VIEW_H / WORLD_H_SCALED;
+
+    for (let s of spikes) {
+      let screenX = s.x * scaleX;
+      let screenY = s.y * scaleY;
+
+      let spikeScreenW = SPIKE_DRAW_W * scaleX;
+      let spikeScreenH = SPIKE_DRAW_H * scaleY;
+
+      // draw spike image at the REAL scaled size
+      image(spikeImages[s.variant], screenX, screenY, spikeScreenW, spikeScreenH);
+
+      // BLUE = full image border
+      noFill();
+      stroke(0, 140, 255);
+      strokeWeight(2);
+      rect(screenX, screenY, spikeScreenW, spikeScreenH);
+
+      // RED = actual collision hitbox
+      let hb = SPIKE_HITBOXES[s.variant];
+
+      stroke(255, 0, 0);
+      strokeWeight(2);
+      rect(
+        (s.x + hb.offsetX) * scaleX,
+        (s.y + hb.offsetY) * scaleY,
+        hb.w * scaleX,
+        hb.h * scaleY
+      );
+    }
+
+    noStroke();
+    fill(255);
+    textSize(18);
+    textAlign(LEFT);
+    text(
+      "SPIKE EDIT MODE\nBlue = image border\nRed = hitbox\nClick to place spike\nKeys 1-4 change spike type\nPress C to copy spike code\nPress E to exit editor",
+      20,
+      30
+    );
+  }
+
+  function printSpikeCode() {
+    let code = "spikes = [\n";
+
+    for (let s of spikes) {
+      code += `  { x: ${round(s.x)}, y: ${round(s.y)}, variant: ${s.variant} },\n`;
+    }
+
+    code += "];";
+
+    console.log(code);
+
+    navigator.clipboard.writeText(code).then(() => {
+      alert("Spike code copied!");
+    }).catch(() => {
+      alert("Could not auto-copy. Check the console instead.");
+    });
+  }
 
 
 
