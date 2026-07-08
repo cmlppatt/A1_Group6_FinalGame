@@ -65,20 +65,20 @@ Liecio. 2024. Collect Points | Royalty-free Music. Pixabay.com. Retrieved July 7
 nojisuma. 2021. snow | Royalty-free Music. Pixabay.com. Retrieved July 7, 2026 from https://pixabay.com/music/video-games-snow-12793/
 
 [5]
-2026. Check out this chat. ChatGPT. Retrieved July 6, 2026 from https://chatgpt.com/share/6a4c1c98-d984-83ea-871e-bac209f905e4
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 6, 2026 from https://chatgpt.com/share/6a4c1c98-d984-83ea-871e-bac209f905e4
 
 [6]
-2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a4d2a8e-3b80-83ea-9e1e-42f38b3ff40d
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a4d2a8e-3b80-83ea-9e1e-42f38b3ff40d
 
 [7]
-2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a4d2a4f-811c-83ea-b371-9b468e1be632
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a4d2a4f-811c-83ea-b371-9b468e1be632
 
 [8]
-2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a4d2a01-fa68-83ea-a0d1-a8b3755555b9?fbclid=PARlRTSAS6CeRwZG9mAmV4dG4DYWVtAjEwAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp1dTKxhlNb_zbFoWwJNIeJyuHMhG3xqLByyhrMc1Unz1-spbgXtD02aGA9SN_aem_-_ATcUBkSPnsy1jTo95fxQ
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a4d2a01-fa68-83ea-a0d1-a8b3755555b9?fbclid=PARlRTSAS6CeRwZG9mAmV4dG4DYWVtAjEwAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp1dTKxhlNb_zbFoWwJNIeJyuHMhG3xqLByyhrMc1Unz1-spbgXtD02aGA9SN_aem_-_ATcUBkSPnsy1jTo95fxQ
 
 [9]
-2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a46c398-6f70-83ea-a2f3-cf9d43c8da7f
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a46c398-6f70-83ea-a2f3-cf9d43c8da7f
 
 [10]
-2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f
 ‌
