@@ -128,7 +128,7 @@ const SPRITES = {
     frameHeight: 210,
     numFrames: 6,
     animSpeed: 10,
-    scale: 1.05,
+    scale: 1,
 
     cropLeft:   [0,0,0,0,0,0],
     cropRight:  [0,0,0,0,0,0],
@@ -245,7 +245,7 @@ let tutorialSteps = [
     text: "AVALANCHE\nWARNING\nIN {time} !",
     //text
     fill: [247, 20, 43],
-    size: 42,
+    size: 64,
     // box
     boxFill: tutorialBox,
     delay: 60
@@ -254,7 +254,7 @@ let tutorialSteps = [
     text: " ",
     //text
     fill: [140, 180, 230],
-    size: 28,
+    size: 42,
     // box
     boxFill: tutorialBox,
     delay: 20
@@ -263,7 +263,7 @@ let tutorialSteps = [
     text: "Use A, W, S, D\nto move around.",
     //text
     fill: [140, 180, 230],
-    size: 28,
+    size: 42,
     // box
     boxFill: tutorialBox,
     delay: 20
@@ -272,7 +272,7 @@ let tutorialSteps = [
     text: " ",
     //text
     fill: [140, 180, 230],
-    size: 24,
+    size: 42,
     // box
     boxFill: tutorialBox,
     delay: 450
@@ -280,6 +280,7 @@ let tutorialSteps = [
 ];
 
 // Fish item
+let fishImg;
 let fish = {
   x: 0,
   y: 0,
@@ -302,14 +303,13 @@ const fishSpawns = [
   { x: 721, y: 752 },
   { x: 263,  y: 1285 }
 ];
-
 // Animated fish
 let fishSheet;
 let fishFrameWidth = 120;
 let fishFrameHeight = 120;
 let fishTotalFrames = 8;
 let currentFishFrame = 0;
-let fishAnimationSpeed = 5;
+let fishAnimationSpeed = 10;
 
 // Stars score
 let starOutlineImg;
@@ -324,7 +324,7 @@ let bestStars = { //highest score tracker
 function preload() {
   infoButtonImg = loadImage("assets/images/info_button.png");
   wideBoxImg = loadImage("assets/images/bigger_box.png");
-
+  gameFont = loadFont("assets/fonts/Jersey10-regular.ttf");
   titleImg = loadImage("assets/images/title_card.png");
   SPRITES.up.img = loadImage("assets/images/w_key_penguin.png");
   SPRITES.start_penguin.img = loadImage("assets/images/penguin_front.png");
@@ -356,7 +356,6 @@ function preload() {
   avalanche_test = loadImage("assets/images/avalanche_test.png");
 
   start_penguin = loadImage("assets/images/start_penguin.png");
-  gameFont = loadFont("assets/fonts/Jersey10-regular.ttf");
   tutorialBox = loadImage("assets/images/tutorial_box.png");
   warningOutline = loadImage("assets/images/warning_octo.png");
   boxKey = loadImage("assets/images/box_key.png");
@@ -717,17 +716,17 @@ function drawButton(label, x, y, w, h, pressedFlag) {
 
   // label
   textFont(gameFont);
-  textSize(30);
+  textSize(48);
   textAlign(CENTER, CENTER);
   textStyle(BOLD);
 
   for (let [ox,oy] of [[-2,-2],[2,-2],[-2,2],[2,2]]) {
     fill(10, 20, 70, 200);
-    text(label, floor(x+ox), floor(y+offsetY+oy));
+    text(label, floor(x+ox), floor(y+offsetY+oy-5));
   }
 
   fill(210, 230, 255);
-  text(label, floor(x), floor(y+offsetY));
+  text(label, floor(x), floor(y+offsetY-5));
   return hover;
 }
 
@@ -759,7 +758,7 @@ function drawTutorialButton(label, x, y, w, h, pressedFlag) {
   rect(floor(x-w/2+pulse/2+4), floor(y-h/2+offsetY+pulse/2+4), w-pulse-8, 10, 4);
 
   textFont(gameFont);
-  textSize(24);
+  textSize(36);
   textAlign(CENTER, CENTER);
   textStyle(BOLD);
 
@@ -789,13 +788,10 @@ function drawFish() {
 
   image(
     fishSheet,
-
     fish.x,
     fish.y,
-
     fish.w,
     fish.h + 10,
-
     sx,
     sy,
     fishFrameWidth,
@@ -806,8 +802,6 @@ function drawFish() {
 function drawFishIconUI() {
   let x = 40;   // screen position
   let y = 40;
-
-  // Set EXACT width and height here
   let iconW = 80;   // width
   let iconH = 50;   // height
 
@@ -822,19 +816,6 @@ function randomizeFishPosition() {
   let spot = random(fishSpawns);   // p5.js random() picks a random element
   fish.x = spot.x;
   fish.y = spot.y;
-}
-
-function drawWallDebug() {
-  push();
-  stroke(255, 0, 0);                     // RED
-  strokeWeight(6 / (camZoom * bgScale)); // scale with zoom
-  noFill();
-
-  for (let w of walls) {
-    line(w.x1, w.y1, w.x2, w.y2);
-  }
-
-  pop();
 }
 
 function draw() {
@@ -953,7 +934,6 @@ function draw() {
   drawSpikes();
   drawFish();
   drawSpikeHitboxes();
-  drawWallDebug();
   pop();
 
   // DRAW CHARACTER
@@ -1137,7 +1117,20 @@ function drawTutorialOverlay() {
   if (tutorialIndex === 0) {
     textAlign(LEFT, CENTER);
     let rightEdge = width/2 - 80;
-    text(displayText, rightEdge - 10, height/2+10);
+    let baseX = rightEdge - 10;
+    let baseY = height/2 - 35;   // move up slightly
+    let lh = step.size * 0.72;   // tighter line height (64 * 0.72 ≈ 46px)
+
+    let parts = displayText.split("\n");
+
+    // Line 1
+    text(parts[0], baseX, baseY);
+
+    // Line 2
+    text(parts[1], baseX, baseY + lh);
+
+    // Line 3
+    text(parts[2], baseX, baseY + lh * 2);
 
     drawOctagon(width/2 - 230, height/2 + 17, 95, 255);
     animateAvalanche();
@@ -1187,18 +1180,27 @@ function drawTutorialOverlay() {
     text(after1, leftX + beforeW + highlightW, baseY);
 
     // --- LINE 2 ---
-    text(line2, leftX, baseY + lh);
+    text(line2, leftX, baseY + lh-15);
 
     // --- LINE 3 ---
-    text(line3, leftX, baseY + lh * 2);
+    text(line3, leftX, baseY + lh * 2 -30);
 
     image(fishImg, 270, height/2 - 30, 150, 100);
   }
 
   else if (tutorialIndex === 2) {
     textAlign(LEFT, CENTER);
-    let rightEdge = width/2 - 80;
-    text(step.text, rightEdge + 20, height/2 + 10);
+    let baseX = width/2 - 60;
+    let baseY = height/2;   // move up slightly
+    let lh = step.size * 0.72;   // tighter line height (64 * 0.72 ≈ 46px)
+
+    let parts = displayText.split("\n");
+
+    // Line 1
+    text(parts[0], baseX, baseY);
+
+    // Line 2
+    text(parts[1], baseX, baseY + lh);
 
     fill(10, 15, 54)
     strokeWeight(2);
@@ -1234,7 +1236,7 @@ function drawTutorialOverlay() {
     strokeWeight(8);
 
     // --- LEFT BOUND + Y POSITION CONTROL ---
-    let leftX = width/2 - 330;
+    let leftX = width/2 - 305;
     let baseY = height/2 - 50; 
     let lh = textAscent() + textDescent() + 10; // line height
 
@@ -1245,7 +1247,7 @@ function drawTutorialOverlay() {
 
 
     // --- LINE 2 ---
-    text("But careful, vibrations makes the", leftX, baseY + lh);
+    text("But careful, vibrations makes the", leftX, baseY + lh - 15);
 
 
     // --- LINE 3 (with red highlight) ---
@@ -1253,7 +1255,7 @@ function drawTutorialOverlay() {
     let highlight = "45 seconds";
     let after     = " faster!";
 
-    let line3Y = baseY + lh * 2;
+    let line3Y = baseY + lh * 2 -30;
 
     // BEFORE
     fill(step.fill[0], step.fill[1], step.fill[2]);
@@ -1564,10 +1566,10 @@ function drawTimer() {
 
   // label
   textFont(gameFont);
-  textSize(42);
+  textSize(72);
   textAlign(CENTER, CENTER);
   textStyle(BOLD);
-  text(timerText, width / 2, 65);
+  text(timerText, width / 2, 60);
 }
 
 function drawSadEnding() {
@@ -1865,8 +1867,8 @@ function drawBlizzardOverlay() {
   let stormLayer = createGraphics(width, height);
 
   //image(avalanche_test, 0, -200, width, 2400);
-  //stormLayer.noStroke();
- //stormLayer.fill(255, 255, 255, 253);
+  stormLayer.noStroke();
+  stormLayer.fill(255, 255, 255, 154);
   stormLayer.rect(0, 0, width, height);
 
   // Convert penguin world → screen

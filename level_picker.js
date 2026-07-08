@@ -29,7 +29,7 @@ function drawLevelPickerScreen() {
     stroke(10, 15, 54);
     strokeWeight(8);
     textSize(80);
-    text("Select a Level", width / 2, 70);
+    text("Select a Level", width / 2 - 20, 70);
 
     let cx1 = 570, cy1 = 155;
     let cx2 = 565, cy2 = 395;
@@ -277,7 +277,7 @@ function formatTime(t) {
 function drawObjectiveInfoButton() {
   let btnX = 25;
   let btnY = 25;
-  let btnSize = 70;
+  let btnSize = 100;
 
   image(infoButtonImg, btnX, btnY, btnSize, btnSize);
 
