@@ -24,17 +24,17 @@ After the showcase, we identified two additional improvements that would further
 | `assets/images/box_key.png`             |                                                                |
 | `assets/images/bigger_box.png`          |                                                                |
 | `assets/images/info_button.png`         |                                                                |
-| `assets/images/title_card.png`          |                                                                |
-| `assets/images/w_key_penguin.png`       |                                                                |
-| `assets/images/d_key_penguin.png`       |                                                                |
-| `assets/images/a_key_penguin.png`       |                                                                |
-| `assets/images/s_key_penguin.png`       |                                                                |
+| `assets/images/title_card.png`          | Title Card                                                 [5] |
+| `assets/images/w_key_penguin.png`       | Penguin W Key                                              [5] |
+| `assets/images/d_key_penguin.png`       | Penguin D Key                                              [5] |
+| `assets/images/a_key_penguin.png`       | Penguin A Key                                              [5] |
+| `assets/images/s_key_penguin.png`       | Penguin S Key                                              [5] |
 | `assets/images/tutorial_background.png` |                                                                |
 | `assets/images/fish_item.png`           | Fish sprite sheet - ChatGPT.com                            [2] |
 | `assets/images/test_item.png`           | Fish still image  - ChatGPT.com                            [2] |
 | `assets/images/fish_outline.png`        | Fish sprite sheet - ChatGPT.com                            [2] |
 | `assets/images/spike_tall.png`          |                                                                |
-| `assets/fonts/jersey10.ttf`             | Jersey10-Regular - Google Fonts.com                        [5] |
+| `assets/fonts/jersey10.ttf`             | Jersey10-Regular - Google Fonts.com                        [6] |
 | `assets/images/check_icon.png`          | Iterated game assets - ChatGPT.com                         [2] |
 | `assets/images/fish.png`                | Fish sprite sheet - ChatGPT.com                            [2] |
 | `assets/images/golden_star.png`         | Iterated game assets - ChatGPT.com                         [3] |
@@ -68,4 +68,9 @@ N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from [https://ch
 N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from [https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f](https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f)
 
 [5]
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 8, 2026 from https://chatgpt.com/share/6a4d9282-54f4-83ea-8cdb-44b255c41a7b
+
+[6]
 2026. Jersey 10 - Google Fonts. Google Fonts. Retrieved July 8, 2026 from [https://fonts.google.com/specimen/Jersey+10?query=pixel&preview.script=Latn](https://fonts.google.com/specimen/Jersey+10?query=pixel&preview.script=Latn)
+
+
