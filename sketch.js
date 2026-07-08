@@ -128,7 +128,7 @@ const SPRITES = {
     frameHeight: 210,
     numFrames: 6,
     animSpeed: 10,
-    scale: 1.05,
+    scale: 1,
 
     cropLeft:   [0,0,0,0,0,0],
     cropRight:  [0,0,0,0,0,0],
@@ -176,7 +176,7 @@ let holeOffsetX = -5;
 let holeOffsetY = -70;
 
 // TIMER
-let totalTime = 150;
+let totalTime = 180;
 let startTime;
 let timerStarted = false;
 let gameEnded = false;  
@@ -303,6 +303,13 @@ const fishSpawns = [
   { x: 721, y: 752 },
   { x: 263,  y: 1285 }
 ];
+// Animated fish
+let fishSheet;
+let fishFrameWidth = 120;
+let fishFrameHeight = 120;
+let fishTotalFrames = 8;
+let currentFishFrame = 0;
+let fishAnimationSpeed = 10;
 
 // Stars score
 let starOutlineImg;
@@ -334,6 +341,7 @@ function preload() {
 
   // Fishy stuff
   fishImg = loadImage("assets/images/test_fish.png");
+  fishSheet = loadImage("assets/images/fish.png");
   fishIconOutline = loadImage("assets/images/fish_outline.png"); 
   fishIconFilled  = loadImage("assets/images/fish_item.png");
 
@@ -767,14 +775,31 @@ function drawTutorialButton(label, x, y, w, h, pressedFlag) {
 function drawFish() {
   if (fish.collected) return;
 
-  image(fishImg, fish.x, fish.y, fish.w, fish.h);
+  // Animate fish
+  if (frameCount % fishAnimationSpeed === 0) {
+    currentFishFrame =
+      (currentFishFrame + 1) % fishTotalFrames;
+  }
+
+  let sx = currentFishFrame * fishFrameWidth;
+  let sy = 0;
+
+  image(
+    fishSheet,
+    fish.x,
+    fish.y,
+    fish.w,
+    fish.h + 10,
+    sx,
+    sy,
+    fishFrameWidth,
+    fishFrameHeight
+  );
 }
 
 function drawFishIconUI() {
   let x = 40;   // screen position
   let y = 40;
-
-  // Set EXACT width and height here
   let iconW = 80;   // width
   let iconH = 50;   // height
 
@@ -789,19 +814,6 @@ function randomizeFishPosition() {
   let spot = random(fishSpawns);   // p5.js random() picks a random element
   fish.x = spot.x;
   fish.y = spot.y;
-}
-
-function drawWallDebug() {
-  push();
-  stroke(255, 0, 0);                     // RED
-  strokeWeight(6 / (camZoom * bgScale)); // scale with zoom
-  noFill();
-
-  for (let w of walls) {
-    line(w.x1, w.y1, w.x2, w.y2);
-  }
-
-  pop();
 }
 
 function draw() {
@@ -920,7 +932,6 @@ function draw() {
   drawSpikes();
   drawFish();
   drawSpikeHitboxes();
-  drawWallDebug();
   pop();
 
   // DRAW CHARACTER
@@ -1426,7 +1437,7 @@ function resetGame() {
   timerStarted = false;
   finalTime = null;
 
-  totalTime = 150;   // reset timer
+  totalTime = 180;   // reset timer
   flashTimer = 0;
 
   tutorialActive = false;
@@ -1589,7 +1600,7 @@ function handleInput() {
     waveDelay = 0;
     waveDelayActive = false;
     totalTime = max(0, totalTime - 45); // time penalty for stomp
-    flashTimer= 150;
+    flashTimer= 180;
   }
 
   if (WORLD_W_SCALED && WORLD_H_SCALED) {
@@ -1833,7 +1844,7 @@ function drawBlizzardOverlay() {
 
   //image(avalanche_test, 0, -200, width, 2400);
   stormLayer.noStroke();
-  stormLayer.fill(255, 255, 255, 253);
+  stormLayer.fill(255, 255, 255, 254);
   stormLayer.rect(0, 0, width, height);
 
   // Convert penguin world → screen
