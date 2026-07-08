@@ -24,6 +24,7 @@ let level3Complete = false;
 // Start screen penguin animation
 let testFrame = 0;
 let testFrameTimer = 0;
+let titleImg;
 
 // Avalanche penguin animation
 let avalancheFrame = 0;
@@ -53,16 +54,16 @@ const walls = [];
 const SPRITES = {
   up: {
     img: null,
-    frameWidth: 155,
-    frameHeight: 152,
-    numFrames: 4,
+    frameWidth: 520,
+    frameHeight: 715,
+    numFrames: 6,
     animSpeed: 7,
-    scale: 0.65,
+    scale: 0.3,
 
-    cropLeft:  [0, 10, 20, 20],
-    cropRight: [25, 20, 10, 5],
-    cropTop:   [0, 0, 0, 0],
-    cropBottom:[0, 0, 0, 0]
+    cropLeft:  [65, 25, 0, 0, 0, 0],
+    cropRight: [0, 0, 20, 60, 90, 120],
+    cropTop:   [0, 0, 0, 0, 0, 60],
+    cropBottom:[180, 180, 180, 180, 180, 180]
   },
 
   start_penguin: {
@@ -113,7 +114,7 @@ const SPRITES = {
     frameHeight: 241,
     numFrames: 6,
     animSpeed: 7,
-    scale: 0.38,
+    scale: 0.4,
 
     cropLeft:  [130, 85, 25, 0, 0, 0],
     cropRight: [0, 0, 0, 25, 65, 85],
@@ -177,6 +178,7 @@ let holeOffsetY = -70;
 // TIMER
 let totalTime = 150;
 let startTime;
+let timerStarted = false;
 let gameEnded = false;  
 let finalTime = null;
 let flashTimer = 0;
@@ -223,9 +225,7 @@ const SPIKE_HITBOXES = [
 let spikeImages = [];
 let spikes = [];
 let DEBUG_SPIKE_HITBOXES = false; //remove after testing
-let SPIKE_EDIT_MODE = false; // make true to edit the spikes step 1/2
 let selectedSpikeVariant = 0;
-let editorCleared = true; //make false to clear spikes and add new ones step 2/2
 
 // Tutorial text
 let tutorialActive = false;
@@ -315,7 +315,8 @@ let bestStars = { //highest score tracker
 };
 
 function preload() {
-  SPRITES.up.img = loadImage("assets/images/penguin_front.png");
+  titleImg = loadImage("assets/images/title_card.png");
+  SPRITES.up.img = loadImage("assets/images/w_key_penguin.png");
   SPRITES.start_penguin.img = loadImage("assets/images/penguin_front.png");
   SPRITES.left.img = loadImage("assets/images/a_key_penguin.png");
   SPRITES.right.img = loadImage("assets/images/d_key_penguin.png");
@@ -365,17 +366,17 @@ function preload() {
 
     // WALL 1 — centered diagonal
     walls.push({
-      x1: WORLD_W_SCALED / 2 - 1100,
-      y1: WORLD_H_SCALED / 2 + 900,
-      x2: WORLD_W_SCALED / 2 + 550,
+      x1: WORLD_W_SCALED / 2 - 670,
+      y1: WORLD_H_SCALED / 2 + 1200,
+      x2: WORLD_W_SCALED / 2 + 290,
       y2: WORLD_H_SCALED / 2 - 1600
     });
 
     // WALL 2 — another diagonal, different angle
     walls.push({
-      x1: WORLD_W_SCALED / 2 + 800,
-      y1: WORLD_H_SCALED / 2 + 900,
-      x2: WORLD_W_SCALED / 2 - 400,
+      x1: WORLD_W_SCALED / 2 + 700,
+      y1: WORLD_H_SCALED / 2 + 1200,
+      x2: WORLD_W_SCALED / 2 - 250,
       y2: WORLD_H_SCALED / 2 - 1600
     });
 
@@ -383,7 +384,6 @@ function preload() {
     player.y = WORLD_H_SCALED + 0;
 
     spikes = [
-      { x: 615, y: 514, variant: 3 },
       { x: 567, y: 517, variant: 3 },
       { x: 523, y: 525, variant: 0 },
       { x: 650, y: 653, variant: 0 },
@@ -631,7 +631,6 @@ function drawSpikeHitboxes() {
   pop();
 }
 
-
 function drawPenguinHitbox() {
   if (!DEBUG_PENGUIN_HITBOX) return;
 
@@ -792,11 +791,20 @@ function randomizeFishPosition() {
   fish.y = spot.y;
 }
 
-function draw() {
-  if (SPIKE_EDIT_MODE) {
-    drawSpikeEditor();
-    return;
+function drawWallDebug() {
+  push();
+  stroke(255, 0, 0);                     // RED
+  strokeWeight(6 / (camZoom * bgScale)); // scale with zoom
+  noFill();
+
+  for (let w of walls) {
+    line(w.x1, w.y1, w.x2, w.y2);
   }
+
+  pop();
+}
+
+function draw() {
   // START SCREEN
   if (gameState === "start") {
     drawStartScreen();
@@ -912,6 +920,7 @@ function draw() {
   drawSpikes();
   drawFish();
   drawSpikeHitboxes();
+  drawWallDebug();
   pop();
 
   // DRAW CHARACTER
@@ -1359,11 +1368,6 @@ function drawAvalanche(x, y) {
 }
 
 function keyPressed() {
-
-  if (key === "h" || key === "H") {
-    DEBUG_PENGUIN_HITBOX = !DEBUG_PENGUIN_HITBOX;
-    DEBUG_SPIKE_HITBOXES = !DEBUG_SPIKE_HITBOXES;
-  }
   // START SCREEN → ENTER → TUTORIAL
   if (gameState === "start" && keyCode === ENTER) {
       gameState = "level_picker";
@@ -1418,7 +1422,8 @@ function keyPressed() {
 
 function resetGame() {
   gameEnded = false;
-  startTime = millis();
+  startTime = 0;
+  timerStarted = false;
   finalTime = null;
 
   totalTime = 150;   // reset timer
@@ -1472,7 +1477,10 @@ function updateCamera() {
 }
 
 function drawTimer() {
-  let elapsed = floor((millis() - startTime) / 1000);
+  let elapsed = 0;
+  if (timerStarted) {
+      elapsed = floor((millis() - startTime) / 1000);
+  }
   let timeLeft = totalTime - elapsed;
 
   if (timeLeft <= 0) {
@@ -1570,7 +1578,7 @@ function handleInput() {
   }
   if (keyIsDown(83)) {           // S / down
     newY += player.speed;
-    player.direction = "down";     // keep using the front-facing sprite for now (CATH WILL FIX)
+    player.direction = "down";
     player.isMoving = true;
   }
 
@@ -1599,23 +1607,48 @@ function handleInput() {
   let leftY   = newY;
   let rightX  = newX + r;
   let rightY  = newY;
-  
-  // --- DIAGONAL WALL COLLISION (circle vs line) ---
-  function crossed(px, py) {
-    let d0 = pointSide(player.x, player.y, wall.x1, wall.y1, wall.x2, wall.y2);
-    let d1 = pointSide(px, py,        wall.x1, wall.y1, wall.x2, wall.y2);
-    return d0 * d1 < 0;
-  }
 
   for (let w of walls) {
     function crossed(px, py) {
       let d0 = pointSide(player.x, player.y, w.x1, w.y1, w.x2, w.y2);
-      let d1 = pointSide(px, py, w.x1, w.y1, w.x2, w.y2);
+      let d1 = pointSide(px, py,        w.x1, w.y1, w.x2, w.y2);
       return d0 * d1 < 0;
     }
-    if (crossed(topX, topY) || crossed(leftX, leftY) || crossed(rightX, rightY)) {
-      newX = player.x;
-      newY = player.y;
+
+    if (crossed(topX, topY) ||
+        crossed(leftX, leftY) ||
+        crossed(rightX, rightY)) {
+
+      let mx = newX - player.x;
+      let my = newY - player.y;
+
+      // compute wall normal
+      let nx = w.y2 - w.y1;
+      let ny = -(w.x2 - w.x1);
+
+      // normalize
+      let len = Math.hypot(nx, ny);
+      nx /= len;
+      ny /= len;
+
+      // ⭐ ensure normal faces the player
+      let side = pointSide(player.x, player.y, w.x1, w.y1, w.x2, w.y2);
+      if (side < 0) {
+        nx = -nx;
+        ny = -ny;
+      }
+
+      // dot > 0 means movement is toward the wall
+      let dot = mx * nx + my * ny;
+
+      if (dot > 0) {
+        mx -= dot * nx;
+        my -= dot * ny;
+      }
+
+      newX = player.x + mx;
+      newY = player.y + my;
+
       break;
     }
   }
@@ -1800,7 +1833,7 @@ function drawBlizzardOverlay() {
 
   //image(avalanche_test, 0, -200, width, 2400);
   stormLayer.noStroke();
-  stormLayer.fill(255, 255, 255, 100);
+  stormLayer.fill(255, 255, 255, 253);
   stormLayer.rect(0, 0, width, height);
 
   // Convert penguin world → screen
@@ -1876,7 +1909,7 @@ function mousePressed() {
     }
 
     // --- TUTORIAL BUTTON CLICK ---
-    if (gameState === "tutorial" && tutorialActive) {
+  if (gameState === "tutorial" && tutorialActive) {
         let x = width/2 + 280;
         let y = height * 0.62;
         let w = 100;
@@ -1887,20 +1920,27 @@ function mousePressed() {
           mouseX < x + w/2 &&
           mouseY > y - h/2 + offsetY &&
           mouseY < y + h/2 + offsetY;
-        if (hover) {
-            tutorialBtnPressed = true;
-            // advance tutorial
-            tutorialIndex++;
-            if (tutorialIndex >= tutorialSteps.length) {
-                tutorialActive = false;
-                cursor(ARROW);
-                gameState = "playing";
-            } else {
-                tutorialDelay = tutorialSteps[tutorialIndex].delay;
-            }
-        }
-    }
+    if (hover) {
+      tutorialBtnPressed = true;
 
+      // START TIMER WHEN CLICKING OK ON TUTORIAL PAGE 2
+      if (tutorialIndex === 2 && !timerStarted) {
+          startTime = millis();
+          timerStarted = true;
+      }
+
+      // advance tutorial
+      tutorialIndex++;
+
+      if (tutorialIndex >= tutorialSteps.length) {
+          tutorialActive = false;
+          cursor(ARROW);
+          gameState = "playing";
+      } else {
+          tutorialDelay = tutorialSteps[tutorialIndex].delay;
+      }
+    }
+  }
 }
 
 function mouseReleased() {
@@ -1929,6 +1969,11 @@ function mouseReleased() {
       mouseY > by-bh/2 && mouseY < by+bh/2;
 
     if (tutorialBtnPressed && hover && tutorialDelay <= 0) {
+      if (tutorialIndex === 2) {
+        startTime = millis();
+        timerStarted = true;
+      }
+
       tutorialIndex++;
 
       if (tutorialIndex === 3) {
@@ -1973,7 +2018,6 @@ function mouseReleased() {
       gameState = "level_picker";
     }
 
-    // Loss "Try Again" button (middle)
     let lossBx = width/2, lossBy = height*0.45, lossBw = 320, lossBh = 64;
     let lossHover =
       mouseX > lossBx-lossBw/2 && mouseX < lossBx+lossBw/2 &&
@@ -1981,87 +2025,26 @@ function mouseReleased() {
 
     if (lossBtnPressed && lossHover && gameState === "loss") {
       resetGame();
+
+      startTime = millis();     // new starting point
+      timerStarted = true;      // force timer to run
+      gameEnded = false;        // prevent auto-loss
+      finalTime = null;         // clear old result
+
+      tutorialActive = false;
+      postTutorialTimerActive = false;
+      tutorialIndex = 999;      // mark tutorial as finished
+
       gameState = "playing";
       cursor(ARROW);
     }
+
 
     levelPickerBtnPressed = false;
     lossBtnPressed = false;
     winBtnPressed = false;
     return;
   }
-}
-
-function drawSpikeEditor() {
-    if (!editorCleared) {
-      spikes = [];
-      editorCleared = true;
-    }
-
-    background(20);
-
-    // show full tutorial background
-    image(bgImg, 0, 0, VIEW_W, VIEW_H);
-
-    let scaleX = VIEW_W / WORLD_W_SCALED;
-    let scaleY = VIEW_H / WORLD_H_SCALED;
-
-    for (let s of spikes) {
-      let screenX = s.x * scaleX;
-      let screenY = s.y * scaleY;
-
-      let spikeScreenW = SPIKE_DRAW_W * scaleX;
-      let spikeScreenH = SPIKE_DRAW_H * scaleY;
-
-      // draw spike image at the REAL scaled size
-      image(spikeImages[s.variant], screenX, screenY, spikeScreenW, spikeScreenH);
-
-      // BLUE = full image border
-      noFill();
-      stroke(0, 140, 255);
-      strokeWeight(2);
-      rect(screenX, screenY, spikeScreenW, spikeScreenH);
-
-      // RED = actual collision hitbox
-      let hb = SPIKE_HITBOXES[s.variant];
-
-      stroke(255, 0, 0);
-      strokeWeight(2);
-      rect(
-        (s.x + hb.offsetX) * scaleX,
-        (s.y + hb.offsetY) * scaleY,
-        hb.w * scaleX,
-        hb.h * scaleY
-      );
-    }
-
-    noStroke();
-    fill(255);
-    textSize(18);
-    textAlign(LEFT);
-    text(
-      "SPIKE EDIT MODE\nBlue = image border\nRed = hitbox\nClick to place spike\nKeys 1-4 change spike type\nPress C to copy spike code\nPress E to exit editor",
-      20,
-      30
-    );
-}
-
-function printSpikeCode() {
-    let code = "spikes = [\n";
-
-    for (let s of spikes) {
-      code += `  { x: ${round(s.x)}, y: ${round(s.y)}, variant: ${s.variant} },\n`;
-    }
-
-    code += "];";
-
-    console.log(code);
-
-    navigator.clipboard.writeText(code).then(() => {
-      alert("Spike code copied!");
-    }).catch(() => {
-      alert("Could not auto-copy. Check the console instead.");
-    });
 }
 
 
