@@ -22,6 +22,7 @@ After the showcase, we identified two additional improvements that would further
 
 | File                                        | Source                                                       |
 | ------------------------------------------- | -------------------------------------------------------------|
+| `assets/fonts/Jersey10-Regular.ttf`         | Jersey10-Regular - Google Fonts.com                      [7] |
 | `assets/images/background.png`              | Iterated game assets - ChatGPT.com                       [4] |
 | `assets/images/blizzard.png`                | Blizzard asset - ChatGPT.com                             [3] |
 | `assets/images/check_icon.png`              | Iterated game assets - ChatGPT.com                       [4] |
