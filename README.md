@@ -17,66 +17,54 @@ Following our first playtesting session, we implemented three key interaction‑
 **Post-Showcase:** 2 planned improvements if you were to continue iterating the game:
 After the showcase, we identified two additional improvements that would further enhance gameplay if development continued. One planned feature is the introduction of holes that the penguin can fall into, requiring players to click rapidly to escape, adding tension, challenge, and a fun interactive moment. We also plan to incorporate level‑specific background changes, such as different snowy mountain environments, to create a stronger sense of progression and visual variety as players advance. These enhancements would deepen both the mechanical and aesthetic experience of the game.
 
-
 # Assets
 
-| File                                        | Source                                                       |
-| ------------------------------------------- | -------------------------------------------------------------|
-| `assets/images/box_key.png`                 |                                                              |
-| `assets/images/bigger_box.png`              |                                                              |
-| `assets/images/info_button.png`             |                                                              |
-| `assets/images/title_card.png`              |                                                              |
-| `assets/images/w_key_penguin.png`           |                                                              |
-| `assets/images/d_key_penguin.png`           |                                                              |
-| `assets/images/a_key_penguin.png`           |                                                              |
-| `assets/images/s_key_penguin.png`           |                                                              |
-| `assets/images/tutorial_background.png`     |                                                              |
-| `assets/images/fish_item.png`               | Fish sprite sheet - ChatGPT.com                          [2] |                                       
-| `assets/images/fish_outline.png`            | Fish sprite sheet - ChatGPT.com                          [2] |  
-| `assets/images/spike_tall.png`              |                                                              |
-| `assets/fonts/jersey10.ttf`                 | Jersey10-Regular - Google Fonts.com                      [7] |
-| `assets/images/check_icon.png`              | Iterated game assets - ChatGPT.com                       [4] |
-| `assets/images/fish.png`                    | Fish sprite sheet - ChatGPT.com                          [2] |
-| `assets/images/golden_star.png`             | Iterated game assets - ChatGPT.com                       [4] |
-| `assets/images/level_info_box.png`          | Box asset - ChatGPT.com                                  [5] |
-| `assets/images/level_picker.jpg`            | Iterated game assets - ChatGPT.com                       [4] |
-| `assets/images/lock_icon.png`               | Iterated game assets - ChatGPT.com                       [4] |
-| `assets/images/loss_screen.png`             | Screens, spike and penguin sprite sheets - ChatGPT.com   [6] |
-| `assets/images/penguin_avalanche.png`       | Screens, spike and penguin sprite sheets - ChatGPT.com   [6] |
-| `assets/images/penguin_stomp.png`           | Screens, spike and penguin sprite sheets - ChatGPT.com   [6] |
-| `assets/images/spike_double.png`            | Screens, spike and penguin sprite sheets - ChatGPT.com   [6] |
-| `assets/images/spike_mid.png`               | Screens, spike and penguin sprite sheets - ChatGPT.com   [6] |
-| `assets/images/spike_small.png`             | Screens, spike and penguin sprite sheets - ChatGPT.com   [6] |
-| `assets/images/star_outline.png`            | Iterated game assets - ChatGPT.com                       [4] |
-| `assets/images/start_penguin.png`           | Screens, spike and penguin sprite sheets - ChatGPT.com   [6] |
-| `assets/images/start_screen.png`            | Screens, spike and penguin sprite sheets - ChatGPT.com   [6] |
-| `assets/images/tutorial_box.png`            | Warning and box assets - ChatGPT.com                     [1] |
-| `assets/images/warning_octo.png`            | Warning and box assets - ChatGPT.com                     [1] |
-| `assets/images/win_screen.png`              | Screens, spike and penguin sprite sheets - ChatGPT.com   [6] |
+| File                                    | Source                                                         |
+| --------------------------------------- | -------------------------------------------------------------- |
+| `assets/images/box_key.png`             |                                                                |
+| `assets/images/bigger_box.png`          |                                                                |
+| `assets/images/info_button.png`         |                                                                |
+| `assets/images/title_card.png`          |                                                                |
+| `assets/images/w_key_penguin.png`       |                                                                |
+| `assets/images/d_key_penguin.png`       |                                                                |
+| `assets/images/a_key_penguin.png`       |                                                                |
+| `assets/images/s_key_penguin.png`       |                                                                |
+| `assets/images/tutorial_background.png` |                                                                |
+| `assets/images/fish_item.png`           | Fish sprite sheet - ChatGPT.com                            [2] |
+| `assets/images/fish_outline.png`        | Fish sprite sheet - ChatGPT.com                            [2] |
+| `assets/images/spike_tall.png`          |                                                                |
+| `assets/fonts/jersey10.ttf`             | Jersey10-Regular - Google Fonts.com                        [5] |
+| `assets/images/check_icon.png`          | Iterated game assets - ChatGPT.com                         [2] |
+| `assets/images/fish.png`                | Fish sprite sheet - ChatGPT.com                            [2] |
+| `assets/images/golden_star.png`         | Iterated game assets - ChatGPT.com                         [3] |
+| `assets/images/level_picker.jpg`        | Iterated game assets - ChatGPT.com                         [3] |
+| `assets/images/lock_icon.png`           | Iterated game assets - ChatGPT.com                         [3] |
+| `assets/images/loss_screen.png`         | Screens, spike and penguin sprite sheets - ChatGPT.com     [4] |
+| `assets/images/penguin_avalanche.png`   | Screens, spike and penguin sprite sheets - ChatGPT.com     [4] |
+| `assets/images/penguin_stomp.png`       | Screens, spike and penguin sprite sheets - ChatGPT.com     [4] |
+| `assets/images/spike_double.png`        | Screens, spike and penguin sprite sheets - ChatGPT.com     [4] |
+| `assets/images/spike_mid.png`           | Screens, spike and penguin sprite sheets - ChatGPT.com     [4] |
+| `assets/images/spike_small.png`         | Screens, spike and penguin sprite sheets - ChatGPT.com     [4] |
+| `assets/images/star_outline.png`        | Iterated game assets - ChatGPT.com                         [3] |
+| `assets/images/start_penguin.png`       | Screens, spike and penguin sprite sheets - ChatGPT.com     [4] |
+| `assets/images/start_screen.png`        | Screens, spike and penguin sprite sheets - ChatGPT.com     [4] |
+| `assets/images/tutorial_box.png`        | Warning and box assets - ChatGPT.com                       [1] |
+| `assets/images/warning_octo.png`        | Warning and box assets - ChatGPT.com                       [1] |
+| `assets/images/win_screen.png`          | Screens, spike and penguin sprite sheets - ChatGPT.com     [4] |
 
-
-## References
+# References
 
 [1]
-N/A. 2026. Check out this chat. ChatGPT. Retrieved July 6, 2026 from https://chatgpt.com/share/6a4c1c98-d984-83ea-871e-bac209f905e4
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 6, 2026 from [https://chatgpt.com/share/6a4c1c98-d984-83ea-871e-bac209f905e4](https://chatgpt.com/share/6a4c1c98-d984-83ea-871e-bac209f905e4)
 
 [2]
-N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a4d2a8e-3b80-83ea-9e1e-42f38b3ff40d
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from [https://chatgpt.com/share/6a4d2a8e-3b80-83ea-9e1e-42f38b3ff40d](https://chatgpt.com/share/6a4d2a8e-3b80-83ea-9e1e-42f38b3ff40d)
 
 [3]
-N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a4d2a4f-811c-83ea-b371-9b468e1be632
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from [https://chatgpt.com/share/6a4d2a01-fa68-83ea-a0d1-a8b3755555b9?fbclid=PARlRTSAS6CeRwZG9mAmV4dG4DYWVtAjEwAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp1dTKxhlNb_zbFoWwJNIeJyuHMhG3xqLByyhrMc1Unz1-spbgXtD02aGA9SN_aem_-_ATcUBkSPnsy1jTo95fxQ](https://chatgpt.com/share/6a4d2a01-fa68-83ea-a0d1-a8b3755555b9?fbclid=PARlRTSAS6CeRwZG9mAmV4dG4DYWVtAjEwAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp1dTKxhlNb_zbFoWwJNIeJyuHMhG3xqLByyhrMc1Unz1-spbgXtD02aGA9SN_aem_-_ATcUBkSPnsy1jTo95fxQ)
 
 [4]
-N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a4d2a01-fa68-83ea-a0d1-a8b3755555b9?fbclid=PARlRTSAS6CeRwZG9mAmV4dG4DYWVtAjEwAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp1dTKxhlNb_zbFoWwJNIeJyuHMhG3xqLByyhrMc1Unz1-spbgXtD02aGA9SN_aem_-_ATcUBkSPnsy1jTo95fxQ
+N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from [https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f](https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f)
 
 [5]
-N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a46c398-6f70-83ea-a2f3-cf9d43c8da7f
-
-[6]
-N/A. 2026. Check out this chat. ChatGPT. Retrieved July 7, 2026 from https://chatgpt.com/share/6a38b0a0-d964-83ea-b273-7854ec0e107f
-
-[7]
-2026. Jersey 10 - Google Fonts. Google Fonts. Retrieved July 8, 2026 from https://fonts.google.com/specimen/Jersey+10?query=pixel&preview.script=Latn
-‌
-
-
+2026. Jersey 10 - Google Fonts. Google Fonts. Retrieved July 8, 2026 from [https://fonts.google.com/specimen/Jersey+10?query=pixel&preview.script=Latn](https://fonts.google.com/specimen/Jersey+10?query=pixel&preview.script=Latn)
