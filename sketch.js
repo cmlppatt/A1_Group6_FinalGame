@@ -1868,7 +1868,7 @@ function drawBlizzardOverlay() {
 
   //image(avalanche_test, 0, -200, width, 2400);
   stormLayer.noStroke();
-  stormLayer.fill(255, 255, 255, 154);
+  stormLayer.fill(255, 255, 255, 253);
   stormLayer.rect(0, 0, width, height);
 
   // Convert penguin world → screen
