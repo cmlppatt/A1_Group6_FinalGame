@@ -128,7 +128,7 @@ const SPRITES = {
     frameHeight: 210,
     numFrames: 6,
     animSpeed: 10,
-    scale: 1,
+    scale: 1.05,
 
     cropLeft:   [0,0,0,0,0,0],
     cropRight:  [0,0,0,0,0,0],
@@ -280,7 +280,6 @@ let tutorialSteps = [
 ];
 
 // Fish item
-let fishImg;
 let fish = {
   x: 0,
   y: 0,
@@ -303,13 +302,14 @@ const fishSpawns = [
   { x: 721, y: 752 },
   { x: 263,  y: 1285 }
 ];
+
 // Animated fish
 let fishSheet;
 let fishFrameWidth = 120;
 let fishFrameHeight = 120;
 let fishTotalFrames = 8;
 let currentFishFrame = 0;
-let fishAnimationSpeed = 10;
+let fishAnimationSpeed = 5;
 
 // Stars score
 let starOutlineImg;
@@ -322,6 +322,9 @@ let bestStars = { //highest score tracker
 };
 
 function preload() {
+  infoButtonImg = loadImage("assets/images/info_button.png");
+  wideBoxImg = loadImage("assets/images/bigger_box.png");
+
   titleImg = loadImage("assets/images/title_card.png");
   SPRITES.up.img = loadImage("assets/images/w_key_penguin.png");
   SPRITES.start_penguin.img = loadImage("assets/images/penguin_front.png");
@@ -353,7 +356,7 @@ function preload() {
   avalanche_test = loadImage("assets/images/avalanche_test.png");
 
   start_penguin = loadImage("assets/images/start_penguin.png");
-  gameFont = loadFont("assets/fonts/ZenDots-Regular.ttf");
+  gameFont = loadFont("assets/fonts/Jersey10-regular.ttf");
   tutorialBox = loadImage("assets/images/tutorial_box.png");
   warningOutline = loadImage("assets/images/warning_octo.png");
   boxKey = loadImage("assets/images/box_key.png");
@@ -714,7 +717,7 @@ function drawButton(label, x, y, w, h, pressedFlag) {
 
   // label
   textFont(gameFont);
-  textSize(24);
+  textSize(30);
   textAlign(CENTER, CENTER);
   textStyle(BOLD);
 
@@ -786,10 +789,13 @@ function drawFish() {
 
   image(
     fishSheet,
+
     fish.x,
     fish.y,
+
     fish.w,
     fish.h + 10,
+
     sx,
     sy,
     fishFrameWidth,
@@ -800,6 +806,8 @@ function drawFish() {
 function drawFishIconUI() {
   let x = 40;   // screen position
   let y = 40;
+
+  // Set EXACT width and height here
   let iconW = 80;   // width
   let iconH = 50;   // height
 
@@ -814,6 +822,19 @@ function randomizeFishPosition() {
   let spot = random(fishSpawns);   // p5.js random() picks a random element
   fish.x = spot.x;
   fish.y = spot.y;
+}
+
+function drawWallDebug() {
+  push();
+  stroke(255, 0, 0);                     // RED
+  strokeWeight(6 / (camZoom * bgScale)); // scale with zoom
+  noFill();
+
+  for (let w of walls) {
+    line(w.x1, w.y1, w.x2, w.y2);
+  }
+
+  pop();
 }
 
 function draw() {
@@ -932,6 +953,7 @@ function draw() {
   drawSpikes();
   drawFish();
   drawSpikeHitboxes();
+  drawWallDebug();
   pop();
 
   // DRAW CHARACTER
@@ -1600,7 +1622,7 @@ function handleInput() {
     waveDelay = 0;
     waveDelayActive = false;
     totalTime = max(0, totalTime - 45); // time penalty for stomp
-    flashTimer= 180;
+    flashTimer= 150;
   }
 
   if (WORLD_W_SCALED && WORLD_H_SCALED) {
@@ -1843,8 +1865,8 @@ function drawBlizzardOverlay() {
   let stormLayer = createGraphics(width, height);
 
   //image(avalanche_test, 0, -200, width, 2400);
-  stormLayer.noStroke();
-  stormLayer.fill(255, 255, 255, 254);
+  //stormLayer.noStroke();
+ //stormLayer.fill(255, 255, 255, 253);
   stormLayer.rect(0, 0, width, height);
 
   // Convert penguin world → screen

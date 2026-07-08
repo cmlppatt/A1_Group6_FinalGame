@@ -1,3 +1,9 @@
+let infoOpen = false;
+const INFO_CLOSED_X = -1100;  // off screen left
+const INFO_OPEN_X = 100;      // where box stops
+const INFO_SPEED = 50;
+let infoBoxX = INFO_CLOSED_X;
+
 let levelShake = [0, 0, 0];
 const PANEL_CLOSED_X = 1600;
 const PANEL_OPEN_X   = 700;
@@ -22,8 +28,8 @@ function drawLevelPickerScreen() {
     fill(255);
     stroke(10, 15, 54);
     strokeWeight(8);
-    textSize(48);
-    text("Select a Level", width / 2, 80);
+    textSize(80);
+    text("Select a Level", width / 2, 70);
 
     let cx1 = 570, cy1 = 155;
     let cx2 = 565, cy2 = 395;
@@ -71,6 +77,9 @@ function drawLevelPickerScreen() {
             isClosingPanel = false;
         }
     }
+
+    drawObjectiveInfoButton();
+    drawObjectiveInfoBox();
 }
 
 function drawLevelCircle(cx, cy, radius, unlocked, index) {
@@ -121,15 +130,15 @@ function drawInfoPanel(index) {
     textFont(gameFont);
     textAlign(CENTER, CENTER);
 
-    textSize(28);
+    textSize(60);
     text(panel.title, centerX, y + 80);
 
-    textSize(16);
-    text("Level " + (index+1), centerX, y + 110);
+    textSize(46);
+    text("Level " + (index+1), centerX, y + 130);
 
     // --- DRAW STARS ---
     let startX = x + 108;     // horizontal starting point
-    let starY  = y + 130;     // vertical base position
+    let starY  = y + 160;     // vertical base position
     let starW  = 120;
     let starH  = 120;     
     const drawOrder = [0, 2, 1];
@@ -157,10 +166,10 @@ function drawInfoPanel(index) {
 
     // store into panel so your existing text() calls work
     panel.recordTime = fastestText;
-    textSize(20);
-    text("Fastest Descent:", centerX, y + 260);
-    textSize(36);
-    text(panel.recordTime, centerX, y + 310);
+    textSize(38);
+    text("Fastest Descent:", centerX, y + 280);
+    textSize(68);
+    text(panel.recordTime, centerX, y + 320);
 
     let btnX = x + PANEL_W/2;
     let btnY = y + PANEL_H - 100;
@@ -178,6 +187,17 @@ function drawInfoPanel(index) {
 }
 
 function handleLevelPickerClick() {
+
+let infoBtnX = 25;
+let infoBtnY = 25;
+let infoBtnSize = 70;
+
+if (mouseX > infoBtnX && mouseX < infoBtnX + infoBtnSize &&
+    mouseY > infoBtnY && mouseY < infoBtnY + infoBtnSize) {
+  infoOpen = !infoOpen;
+  return;
+}
+
   let cx = [570, 565, 531];
   let cy = [158, 405, 640];
   let radius = 73 / 2;
@@ -254,11 +274,87 @@ function formatTime(t) {
     return minutes + ":" + nf(seconds, 2);
 }
 
+function drawObjectiveInfoButton() {
+  let btnX = 25;
+  let btnY = 25;
+  let btnSize = 70;
 
+  image(infoButtonImg, btnX, btnY, btnSize, btnSize);
 
+  if (mouseX > btnX && mouseX < btnX + btnSize &&
+      mouseY > btnY && mouseY < btnY + btnSize) {
+    cursor(HAND);
+  }
+}
 
+function drawObjectiveInfoBox() {
+  let targetX = infoOpen ? INFO_OPEN_X : INFO_CLOSED_X;
 
+  let dx = targetX - infoBoxX;
 
+  if (Math.abs(dx) < INFO_SPEED) {
+    infoBoxX = targetX;
+  } else {
+    infoBoxX += Math.sign(dx) * INFO_SPEED;
+  }
 
+  // don't draw if fully closed
+  if (infoBoxX <= INFO_CLOSED_X + 5 && !infoOpen) return;
 
+  let boxW = 1000;
+  let boxH = 700;
+  let boxX = infoBoxX;
+  let boxY = height / 2 - boxH / 2;
 
+  let centerX = boxX + boxW / 2;
+  let rowCenter = centerX;
+
+  image(wideBoxImg, boxX, boxY, boxW, boxH);
+
+  fill(255);
+  noStroke();
+  textFont(gameFont);
+  textAlign(CENTER, CENTER);
+
+  textSize(67);
+  text("Instructions", centerX, boxY + 150);
+
+  textSize(30);
+  text(
+    "On your way down the mountain, you must find fishy \nwithin the time limit to get to the next level.",
+    centerX,
+    boxY + 230
+  );
+
+  image(fishImg, centerX - 40, boxY + 280, 70, 40);
+
+  textSize(30);
+  text(
+    "Find fishy as fast as possible to collect 3 stars.\nYou need to collect stars to unlock levels.",
+    centerX,
+    boxY + 370
+  );
+
+  // 1 star row
+  let row1Y = boxY + 430;
+  image(starFilledImg, rowCenter - 160, row1Y - 20, 65, 65);
+  text("=", rowCenter, row1Y + 5);
+  image(fishImg, rowCenter + 60, row1Y - 17, 70, 40);
+
+  // 2 star row
+  let row2Y = boxY + 520;
+  image(starFilledImg, rowCenter - 190, row2Y - 50, 65, 65);
+  image(starFilledImg, rowCenter - 130, row2Y - 50, 65, 65);
+  text("=", rowCenter, row2Y - 20);
+  image(fishImg, rowCenter + 60, row2Y - 40, 70, 40);
+  text("+ 00:30 remaining", rowCenter + 228, row2Y - 20);
+
+  // 3 star row
+  let row3Y = boxY + 610;
+  image(starFilledImg, rowCenter - 220, row3Y - 80, 65, 65);
+  image(starFilledImg, rowCenter - 160, row3Y - 80, 65, 65);
+  image(starFilledImg, rowCenter - 100, row3Y - 80, 65, 65);
+  text("=", rowCenter, row3Y - 50);
+  image(fishImg, rowCenter + 60, row3Y - 70, 70, 40);
+  text("+ 1:00 remaining", rowCenter + 220, row3Y - 50);
+}
