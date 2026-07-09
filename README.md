@@ -21,6 +21,7 @@ After the showcase, we identified two additional improvements that would further
 
 | File                                    | Source                                                         |
 | --------------------------------------- | -------------------------------------------------------------- |
+| `assets/images/box_key.png`             |                                                                |          
 | `assets/images/bigger_box.png`          | Box/key tutorial UI asset – ChatGPT.com                    [3] |
 | `assets/images/info_button.png`         | Info/help button icon – ChatGPT.com                        [3] |
 | `assets/images/title_card.png`          | Title Card - ChatGPT.com                                   [5] |
